@@ -1,0 +1,44 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Car {
+  id           String   @id @default(cuid())
+  make         String
+  model        String
+  year         Int
+  price        Float
+  mileage      Int
+  fuelType     String
+  transmission String
+  color        String
+  description  String
+  images       String[]
+  featured     Boolean  @default(false)
+  // New mandatory fields
+  doors        Int      @default(5)
+  bodyType     String   @default("Sedan")
+  drivetrain   String   @default("FWD")
+  // New optional fields
+  version      String?
+  engineSize   Int?
+  horsepower   Int?
+  gears        Int?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  image     String?
+  role      String   @default("user") // "user" | "manager" | "admin"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
