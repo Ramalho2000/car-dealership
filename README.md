@@ -1,45 +1,81 @@
-This is a [Next.js](https://nextjs.org) car dealership showcase and admin app (multi‑locale, auth, inventory).
+# Car Dealership
 
-## Customization
+A **Next.js** car dealership showcase and admin app with multi-locale support, authentication, and inventory management.
 
-The project uses placeholder branding and mock contact data. To use it for your own business:
+## Features
 
-- **Brand and contact**: Edit `src/config/site.ts` (brand name, address, email, phone, Google Maps URLs).
-- **Logo**: Replace `public/logo.svg` with your logo (or point the Logo component to your asset).
-- **Copy**: Update the i18n dictionaries in `src/i18n/dictionaries/` (en, pt, es, fr) for metadata, hero, about, and footer text.
-- **Environment**: Copy `.env.example` to `.env` and set `SEED_ADMIN_EMAIL` to the email that should receive admin access when seeding.
+- **Public site**: Home, car listing, car detail, and about pages
+- **Admin**: Protected area for managing cars and users (NextAuth + Google OAuth)
+- **i18n**: Locales `pt` (default), `en`, `es`, `fr` — dictionaries in `src/i18n/dictionaries/`
+- **Stack**: Next.js 16, React 19, Prisma (Neon PostgreSQL), NextAuth, Cloudinary, Tailwind CSS, Radix UI / shadcn, Zod
+
+## Screenshots
+
+| Home | Cars | Car detail | Admin |
+|------|------|------------|--------|
+| ![Home](docs/screenshots/home.png) | ![Cars](docs/screenshots/cars.png) | ![Car detail](docs/screenshots/car-detail.png) | ![Admin](docs/screenshots/admin.png) |
+
+Add your screenshots to `docs/screenshots/` and name them `home.png`, `cars.png`, `car-detail.png`, and `admin.png` (or update the paths above).
+
+## Prerequisites
+
+- Node.js 18+
+- A [Neon](https://neon.tech) (or compatible) PostgreSQL database
+- [Google OAuth](https://console.cloud.google.com/apis/credentials) credentials
+- [Cloudinary](https://cloudinary.com/console) account (for car images)
+
+## Environment
+
+Copy `.env.example` to `.env` and set:
+
+| Variable | Description |
+|----------|-------------|
+| `DATABASE_URL` | PostgreSQL connection string (e.g. Neon) |
+| `AUTH_SECRET` | NextAuth secret (`openssl rand -base64 32`) |
+| `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` | Google OAuth credentials |
+| `SEED_ADMIN_EMAIL` | Email that gets admin access when seeding |
+| `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME` | Cloudinary cloud name |
+| `CLOUDINARY_API_KEY` / `CLOUDINARY_API_SECRET` | Cloudinary API credentials |
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+# Install dependencies
+npm install
+
+# Set up environment (see above)
+cp .env.example .env
+
+# Generate Prisma client and run migrations
+npx prisma generate
+npx prisma db push   # or prisma migrate dev
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000). Use a locale in the path (e.g. `/en`, `/pt`) or the default locale will be used.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start dev server |
+| `npm run build` | Prisma generate + Next.js build |
+| `npm run start` | Start production server |
+| `npm run lint` | Run ESLint |
+| `npm run format` | Format with Prettier |
+| `npm run format:check` | Check formatting |
 
-## Learn More
+## Customization
 
-To learn more about Next.js, take a look at the following resources:
+To use this project for your own dealership:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Brand & contact**: Edit `src/config/site.ts` (brand name, address, email, phone, Google Maps URLs).
+- **Logo**: Replace `public/logo.svg` or point the Logo component to your asset.
+- **Copy**: Update i18n dictionaries in `src/i18n/dictionaries/` (en, pt, es, fr) for metadata, hero, about, and footer.
+- **Placeholder image**: Set `placeholderImage` in `src/config/site.ts` or replace `public/placeholder-image.svg`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deploy
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+You can deploy on [Vercel](https://vercel.com) or any Node.js host. Set the same environment variables in your deployment environment and run `npm run build` then `npm run start`. See [Next.js deployment docs](https://nextjs.org/docs/app/building-your-application/deploying) for details.
