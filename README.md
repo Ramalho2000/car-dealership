@@ -9,13 +9,15 @@ A **Next.js** car dealership showcase and admin app with multi-locale support, a
 - **i18n**: Locales `pt` (default), `en`, `es`, `fr` — dictionaries in `src/i18n/dictionaries/`
 - **Stack**: Next.js 16, React 19, Prisma (Neon PostgreSQL), NextAuth, Cloudinary, Tailwind CSS, Radix UI / shadcn, Zod
 
+## Demo
+
+![Car Dealership Demo](docs/car-dealership.gif)
+
 ## Screenshots
 
 | Home | Cars | Car detail | Admin |
 |------|------|------------|--------|
 | ![Home](docs/screenshots/home.png) | ![Cars](docs/screenshots/cars.png) | ![Car detail](docs/screenshots/car-detail.png) | ![Admin](docs/screenshots/admin.png) |
-
-Add your screenshots to `docs/screenshots/` and name them `home.png`, `cars.png`, `car-detail.png`, and `admin.png` (or update the paths above).
 
 ## Prerequisites
 
